@@ -12,13 +12,13 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
-
 #define closesocket close
 #endif
 
+
 #include <iostream>
 #include <cstdlib>
-
+#include <stdio.h>
 
 int main(int argc, const char * argv[]) {
   #ifdef WIN32
@@ -48,6 +48,9 @@ int main(int argc, const char * argv[]) {
   }
   
   listen(sock, 10);
+  int client = accept(sock, 0, 0);
+  std::cout << "client " << client << std::endl;
+  getchar();
   
   return 0;
 }
