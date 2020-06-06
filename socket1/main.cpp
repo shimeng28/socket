@@ -62,12 +62,17 @@ int main(int argc, const char * argv[]) {
   std::cout << "port " << cport << std::endl;
   char buf[1024] = {0};
   while (true) {
-    size_t len = recv(sock, buf, sizeof(buf) - 1, 0);
+    size_t len = recv(client, buf, sizeof(buf) - 1, 0);
     std::cout << "len " << len << std::endl;
     std::cout << "recv " << buf << std::endl;
     if (len < 0) break;
     buf[len] = '\0';
-    if (strstr(buf, "quit") != nullptr) break;
+    if (strstr(buf, "quit") != nullptr) {
+      char recvMsg[] = "quit success!\n";
+      send(client, recvMsg, strlen(recvMsg) + 1, 0);
+      break;
+    };
+    send(client, "ok\n", 3, 0);
   }
   
   closesocket(client);
