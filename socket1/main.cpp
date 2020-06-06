@@ -20,6 +20,31 @@
 #include <cstdlib>
 #include <stdio.h>
 #include <cstring>
+#include <thread>
+
+class TcpThread
+{
+public:
+  void main() {
+    char buf[1024] = {0};
+    while (true) {
+      size_t len = recv(client, buf, sizeof(buf) - 1, 0);
+      std::cout << "len " << len << std::endl;
+      std::cout << "recv " << buf << std::endl;
+      if (len < 0) break;
+      buf[len] = '\0';
+      if (strstr(buf, "quit") != nullptr) {
+        char recvMsg[] = "quit success!\n";
+        send(client, recvMsg, strlen(recvMsg) + 1, 0);
+        break;
+      };
+      send(client, "ok\n", 3, 0);
+    }
+    closesocket(client);
+    delete this;
+  }
+  int client = 0;
+};
 
 int main(int argc, const char * argv[]) {
   #ifdef WIN32
@@ -49,34 +74,26 @@ int main(int argc, const char * argv[]) {
   }
   
   listen(sock, 10);
-  
-  sockaddr_in caddr;
-  socklen_t clen = 0;
-
-  int client = accept(sock, (sockaddr*)&caddr, &clen);
-  char* ip = inet_ntoa(caddr.sin_addr);
-  unsigned short cport = ntohs(caddr.sin_port);
-  
-  std::cout << "client " << client << std::endl;
-  std::cout << "ip " << *ip << std::endl;
-  std::cout << "port " << cport << std::endl;
-  char buf[1024] = {0};
   while (true) {
-    size_t len = recv(client, buf, sizeof(buf) - 1, 0);
-    std::cout << "len " << len << std::endl;
-    std::cout << "recv " << buf << std::endl;
-    if (len < 0) break;
-    buf[len] = '\0';
-    if (strstr(buf, "quit") != nullptr) {
-      char recvMsg[] = "quit success!\n";
-      send(client, recvMsg, strlen(recvMsg) + 1, 0);
+    sockaddr_in caddr;
+    socklen_t clen = 0;
+
+    int client = accept(sock, (sockaddr*)&caddr, &clen);
+    if (client < 0) {
       break;
-    };
-    send(client, "ok\n", 3, 0);
-  }
+    }
   
-  closesocket(client);
-  getchar();
+    char* ip = inet_ntoa(caddr.sin_addr);
+    unsigned short cport = ntohs(caddr.sin_port);
+    std::cout << "client " << client << std::endl;
+    std::cout << "ip " << *ip << std::endl;
+    std::cout << "port " << cport << std::endl;
+  
+    TcpThread *th = new TcpThread();
+    th->client = client;
+    std::thread sth(&TcpThread::main, th);
+    sth.detach();
+  }
   
   return 0;
 }
