@@ -50,15 +50,19 @@ int main(int argc, const char * argv[]) {
   listen(sock, 10);
   
   sockaddr_in caddr;
-  socklen_t len = 0;
+  socklen_t clen = 0;
 
-  int client = accept(sock, (sockaddr*)&caddr, &len);
+  int client = accept(sock, (sockaddr*)&caddr, &clen);
   char* ip = inet_ntoa(caddr.sin_addr);
   unsigned short cport = ntohs(caddr.sin_port);
   
   std::cout << "client " << client << std::endl;
   std::cout << "ip " << *ip << std::endl;
   std::cout << "port " << cport << std::endl;
+  char buf[1024] = {0};
+  size_t len = recv(sock, buf, sizeof(buf) - 1, 0);
+  std::cout << "len " << len << std::endl;
+  std::cout << "buf " << buf << std::endl;
   closesocket(client);
   getchar();
   
