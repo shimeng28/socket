@@ -48,8 +48,18 @@ int main(int argc, const char * argv[]) {
   }
   
   listen(sock, 10);
-  int client = accept(sock, 0, 0);
+  
+  sockaddr_in caddr;
+  socklen_t len = 0;
+
+  int client = accept(sock, (sockaddr*)&caddr, &len);
+  char* ip = inet_ntoa(caddr.sin_addr);
+  unsigned short cport = ntohs(caddr.sin_port);
+  
   std::cout << "client " << client << std::endl;
+  std::cout << "ip " << *ip << std::endl;
+  std::cout << "port " << cport << std::endl;
+  closesocket(client);
   getchar();
   
   return 0;
