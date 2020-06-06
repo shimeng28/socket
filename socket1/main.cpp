@@ -19,6 +19,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <stdio.h>
+#include <cstring>
 
 int main(int argc, const char * argv[]) {
   #ifdef WIN32
@@ -60,9 +61,15 @@ int main(int argc, const char * argv[]) {
   std::cout << "ip " << *ip << std::endl;
   std::cout << "port " << cport << std::endl;
   char buf[1024] = {0};
-  size_t len = recv(sock, buf, sizeof(buf) - 1, 0);
-  std::cout << "len " << len << std::endl;
-  std::cout << "buf " << buf << std::endl;
+  while (true) {
+    size_t len = recv(sock, buf, sizeof(buf) - 1, 0);
+    std::cout << "len " << len << std::endl;
+    std::cout << "recv " << buf << std::endl;
+    if (len < 0) break;
+    buf[len] = '\0';
+    if (strstr(buf, "quit") != nullptr) break;
+  }
+  
   closesocket(client);
   getchar();
   
