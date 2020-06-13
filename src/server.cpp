@@ -10,7 +10,7 @@
 #include "XTcp.hpp"
 #include <iostream>
 #include <thread>
-
+#include <string.h>
 
 class TcpThread
 {
