@@ -1,3 +1,2 @@
-export LIBRARY_PATH=../XTcp
-make ./makefile
+export LD_LIBRARY_PATH=../XTcp
 ./tcpserver

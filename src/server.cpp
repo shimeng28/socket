@@ -20,10 +20,9 @@ public:
     char buf[1024] = {0};
     while (true) {
       size_t len = client.Recv(buf, sizeof(buf) - 1);
-      std::cout << "len " << len << std::endl;
-      std::cout << "recv " << buf << std::endl;
       if (len < 0) break;
       buf[len] = '\0';
+      printf("%s", buf);
       if (strstr(buf, "quit") != nullptr) {
         char recvMsg[] = "quit success!\n";
         client.Send(recvMsg, strlen(recvMsg) + 1);
@@ -48,7 +47,6 @@ int main(int argc, const char * argv[]) {
   server.Bind(port);
   
   while (true) {
-    
     XTcp client = server.Accept();
     TcpThread *th = new TcpThread();
     th->client = client;

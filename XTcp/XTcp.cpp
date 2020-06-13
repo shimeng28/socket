@@ -68,7 +68,7 @@ XTcp XTcp::Accept()
 {
   XTcp tcp;
   sockaddr_in caddr;
-  socklen_t clen = 0;
+  socklen_t clen = sizeof(caddr);
 
   int client = accept(sock, (sockaddr*)&caddr, &clen);
   if (client <= 0) {
