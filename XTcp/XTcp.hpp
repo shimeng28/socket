@@ -22,6 +22,7 @@ public:
   void Close();
   int Recv(char* buf, int bufSize);
   int Send(const char* buf, int sendSize);
+  bool Connect(const char* ip, unsigned short port);
   virtual ~XTcp();
   int sock = 0;
   unsigned int port = 0;
