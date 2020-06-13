@@ -7,10 +7,11 @@
 //
 
 #include <cstdlib>
-#include "XTcp.hpp"
 #include <iostream>
 #include <thread>
-#include <string.h>
+#include <cstring>
+#include "XTcp.hpp"
+
 
 class TcpThread
 {
