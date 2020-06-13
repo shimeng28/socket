@@ -25,7 +25,7 @@ public:
   virtual ~XTcp();
   int sock = 0;
   unsigned int port = 0;
-  std::string ip;
+  char ip[16];
 };
 
 #endif /* XTcp_hpp */

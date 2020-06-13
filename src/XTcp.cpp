@@ -75,7 +75,8 @@ XTcp XTcp::Accept()
     return tcp;
   }
   tcp.sock = client;
-  tcp.ip = inet_ntoa(caddr.sin_addr);
+  char* ip = inet_ntoa(caddr.sin_addr);
+  strcpy(tcp.ip, ip);
   tcp.port = ntohs(caddr.sin_port);
   return tcp;
 };
@@ -109,5 +110,5 @@ int XTcp::Send(const char* buf, int sendSize)
 
 XTcp::~XTcp() 
 {
-  
+
 }
