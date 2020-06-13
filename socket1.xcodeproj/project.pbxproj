@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9682B2C1248B7EE600AF9451 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9682B2C0248B7EE600AF9451 /* main.cpp */; };
+		9682B2C9248BBABA00AF9451 /* XTcp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9682B2C7248BBABA00AF9451 /* XTcp.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,8 @@
 /* Begin PBXFileReference section */
 		9682B2BD248B7EE600AF9451 /* socket1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = socket1; sourceTree = BUILT_PRODUCTS_DIR; };
 		9682B2C0248B7EE600AF9451 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		9682B2C7248BBABA00AF9451 /* XTcp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = XTcp.cpp; sourceTree = "<group>"; };
+		9682B2C8248BBABA00AF9451 /* XTcp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = XTcp.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				9682B2C0248B7EE600AF9451 /* main.cpp */,
+				9682B2C7248BBABA00AF9451 /* XTcp.cpp */,
+				9682B2C8248BBABA00AF9451 /* XTcp.hpp */,
 			);
 			path = socket1;
 			sourceTree = "<group>";
@@ -119,6 +124,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9682B2C9248BBABA00AF9451 /* XTcp.cpp in Sources */,
 				9682B2C1248B7EE600AF9451 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
